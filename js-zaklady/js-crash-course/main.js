@@ -1,48 +1,25 @@
-const todos = [
-    {
-        id: 1,
-        text: 'Take out trash',
-        isCompleted : true
-    },
-    {
-        id: 2,
-        text: 'Meeting with boss',
-        isCompleted : true
-    },
-    {
-        id: 3,
-        text: 'Dentist appt',
-        isCompleted : false
-    },
-];
+const myForm = document.querySelector('#my-form');
+const nameInput = document.querySelector('#name');
+const emailInput = document.querySelector('#email');
+const msg = document.querySelector('.msg');
+const userList = document.querySelector('#users');
 
-const todoCompleted = todos.filter(function(todo){
-    return todo.isCompleted === true;
-}).map(function(todo){
-    return todo.text;
-})
+myForm.addEventListener('submit', onSubmit);
 
-console.log(todoCompleted);
+function onSubmit(e){
+    e.preventDefault();
+    if(nameInput.value === '' || emailInput.value === ''){
+        msg.classList.add('error')
+        msg.innerHTML = 'Prosím vyplňte obě políčka';
+        setTimeout(() => msg.remove(), 3000);
+    }else {
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
 
-const x = 6;
-const y = 10
-if(x > 5 || y>10){
-    console.log('x is more than 5 or y is more than 10');
-}
-const a = 9;
-const color = 'green';
-switch(color){
-    case 'red':{
-        console.log('color is red');
-        break;
-    }
-    case 'blue':{
-        console.log('color is blue');
-        break;
-    }
-    default:{
-        console.log('color is not red or blue');
-        break;
+        userList.appendChild(li);
+
+        nameInput.value = '';
+        emailInput.value = '';
+        
     }
 }
-
